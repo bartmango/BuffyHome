@@ -32,6 +32,7 @@
 	
 	
 	
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
 	
 	 <link rel="stylesheet" href=
@@ -43,7 +44,7 @@
 		
 </head>
 
-<body>
+<body ">
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -100,9 +101,7 @@
 						<a href="https://drive.google.com/file/d/1bubiMO7F0ccIK_C7PcpwKA5Yntzhk-rx/view?usp=sharing" class="nav-item nav-link">Vacinas</a>
 						
 						
-                        <button  class="nav-item nav-link"
-        data-toggle="modal" data-target="#exampleModal">Acompanhamento de Peso
-    </button>
+                        <button  class="nav-item nav-link"       data-toggle="modal" data-target="#exampleModal">Acompanhamento de Peso</button>
                        
                     </div>
                    
@@ -114,8 +113,8 @@
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-6 text-center text-lg-start">
                             <h1 class="text-white mb-4 animated zoomIn">Oi! Meu nome é Buffy</h1>
-                            <p class="text-white pb-3 animated zoomIn">Eu nasci em 25/08/2021</p>
-							<p class="text-white pb-3 animated zoomIn">Minha raça é: Corgi Welsh Pembroke</p>
+                            <p class="text-white pb-3 animated zoomIn" ><div class="text-white pb-3 animated zoomIn" id="demoB"></div> </p>
+							<p class="w3-cursive w3-large w3-text-orange pb-5 animated zoomIn">Minha raça é: Corgi Welsh Pembroke</p>
 							<p class="text-white pb-3 animated zoomIn">Em algumas clínicas veterinárias, minha raça pode estar como:</p>
 							<p class="text-white pb-3 animated zoomIn">Welsh Pembroke Corgi</p>
 							<p class="text-white pb-3 animated zoomIn">Pembroke Corgi</p>
@@ -125,7 +124,7 @@
 							 <p><a href="https://drive.google.com/file/d/1bubiMO7F0ccIK_C7PcpwKA5Yntzhk-rx/view?usp=sharing" class="btn btn-outline-light rounded-pill border-2 py-3 px-5 animated slideInRight">Carteira de Vacinação</a></p>
                         </div>
                         <div class="col-lg-6 text-center text-lg-start">
-                            <img class="img-fluid animated zoomIn" src="img/02.jpeg" width="500" height="500" alt="">
+                            <img class="w3-round img-fluid animated zoomIn" src="img/02.jpeg" width="500" height="500" alt="">
                         </div>
                     </div>
                 </div>
@@ -160,6 +159,56 @@
 	
 	
 	
+	<script language=javascript type="text/javascript">
+	
+	var data = '25/08/2021'
+	var now = new Date();
+	var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+
+	var yearNow = now.getYear();
+	var monthNow = now.getMonth();
+	var dateNow = now.getDate();
+	var dob = new Date(data.substring(6,10),
+			data.substring(3,5)-1,                    
+			 data.substring(0,2)                
+			);
+
+	var yearDob = dob.getYear();
+	var monthDob = dob.getMonth();
+	var dateDob = dob.getDate();
+	var age = {};
+	yearAge = yearNow - yearDob;
+
+	if (monthNow >= monthDob)
+		var monthAge = monthNow - monthDob;
+	else {
+		yearAge--;
+		var monthAge = 12 + monthNow -monthDob;
+	}
+
+	if (dateNow >= dateDob)
+		var dateAge = dateNow - dateDob;
+	else {
+		monthAge--;
+	    var dateAge = 31 + dateNow - dateDob;
+
+	    if (monthAge < 0) {
+	      monthAge = 11;
+	      yearAge--;
+	    }
+	  }
+
+	age = {
+			years: yearAge,
+			months: monthAge,
+			days: dateAge
+		};
+    
+    
+
+
+document.getElementById("demoB").textContent = 'Eu nasci em 25/08/2021  e tenho '  +  age.years + ' anos e ' + age.months.toString()  + ' meses.' ;
+	</script>	
 	
 	
 	
