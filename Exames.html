@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Histórico de Medicamentos - Buffy</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        /* destaque para correspondências */
+        .match { background: #fff59d; padding: 0 2px; border-radius: 2px; }
+        .nowrap { white-space: nowrap; }
+    </style>
+      <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+</head>
+<body class="w3-light-grey">
+
+    <!-- Top bar -->
+    <header class="w3-bar w3-white w3-card">
+        <div class="w3-bar-item">
+            <h3 class="w3-margin-0">Histórico de Medicamentos</h3>
+            <small class="w3-text-grey">Pesquisa (tabela) — Buffy</small>
+        </div>
+        <div class="w3-bar-item w3-right" style="width:360px; min-width:220px;">
+            <div class="w3-input w3-border w3-round">
+                <input id="search" class="w3-input" type="search" placeholder="Pesquisar (data, medicamento, veterinário, clínica, indicação)..."
+                       aria-label="Search" oninput="performSearch()" />
+            </div>
+        </div>
+    </header>
+
+    <main class="w3-container w3-padding-24">
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-col s12 m8 l9">
+                <p id="status" class="w3-text-grey">Digite para filtrar a tabela abaixo.</p>
+            </div>
+            <div class="w3-col s12 m4 l3 w3-right-align">
+                <button class="w3-button w3-white w3-border w3-round" onclick="clearSearch()">Limpar</button>
+            </div>
+        </div>
+
+        <!-- Searchable table -->
+        <div class="w3-responsive">
+            <table id="items" class="w3-table-all w3-striped w3-hoverable">
+                <thead>
+                    <tr class=" w3-blue">
+                        <th class="nowrap">Data</th>
+                        <th>Medicamento(s)</th>
+                        <th>Modo de Usar</th>
+                        <th>Veterinário(a)</th>
+                        <th>Clínica</th>
+                        <th>Para que serve (Indicação)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="searchable" data-search="28/11/2021 dipirona gotas 4 gotas via oral 8/8h 3 dias isis de carvalho r. santana lemes centro veterinario seres analgésico antitérmico">
+                        <td class="col-date">28/11/2021</td>
+                        <td class="col-med"><strong>Dipirona Gotas</strong></td>
+                        <td class="col-use">4 gotas via oral, 8/8h por 3 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Analgésico e antitérmico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/11/2021 fenzol 1/2 comprimido via oral cada 24h por 3 dias apos refeicao isis de carvalho r. santana lemes centro veterinario seres vermifugo antiparasitario">
+                        <td class="col-date">28/11/2021</td>
+                        <td class="col-med"><strong>Fenzol</strong></td>
+                        <td class="col-use">1/2 comprimido via oral, cada 24h por 3 dias (após refeição).</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Vermífugo/Antiparasitário.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/11/2021 vonau vet 0,6 ml via oral 8/8h nausea vomito isis de carvalho centro veterinario seres controle de nauseas e vomitos">
+                        <td class="col-date">28/11/2021</td>
+                        <td class="col-med"><strong>Vonau Vet</strong></td>
+                        <td class="col-use">0,6 ml via oral, 8/8h se houver náusea ou vômito.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Controle de náuseas e vômitos.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/11/2021 nuxcell neo 1 bisnaga via oral cada 24h 3 dias isis de carvalho centro veterinario seres suporte imunologico probiotico">
+                        <td class="col-date">28/11/2021</td>
+                        <td class="col-med"><strong>Nuxcell Neo</strong></td>
+                        <td class="col-use">1 bisnaga via oral, cada 24h por 3 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Suporte imunológico/Probiótico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="07/12/2021 giardicid suspensao 1,7 ml via oral 12/12h 3 dias larissa tainara passos rodrigues centro veterinario seres tratamento de giardia infeccoes">
+                        <td class="col-date">07/12/2021</td>
+                        <td class="col-med"><strong>Giardicid (suspensão)</strong></td>
+                        <td class="col-use">1,7 ml via oral, 12/12h por 3 dias.</td>
+                        <td class="col-vet">Larissa Tainara Passos Rodrigues</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Tratamento de giárdia/infecções.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="07/12/2021 beneflora vet 1g via oral cada 24h 10 dias larissa tainara passos rodrigues centro veterinario seres probiotico equilibrio intestinal">
+                        <td class="col-date">07/12/2021</td>
+                        <td class="col-med"><strong>Beneflora Vet</strong></td>
+                        <td class="col-use">1g via oral, cada 24h por 10 dias.</td>
+                        <td class="col-vet">Larissa Tainara Passos Rodrigues</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Probiótico para equilíbrio intestinal.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="09/12/2021 dermotrat creme aplicar nas feridas 2x ao dia ate cicatrizar isis de carvalho centro veterinario seres tratamento de feridas e infeccoes de pele">
+                        <td class="col-date">09/12/2021</td>
+                        <td class="col-med"><strong>Dermotrat Creme</strong></td>
+                        <td class="col-use">Aplicar nas feridas, 2x ao dia até cicatrizar.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Tratamento de feridas e infecções de pele.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="16/12/2021 prednisolona 5mg 1/2 comprimido via oral 12/12h 5 dias isis de carvalho centro veterinario seres antiinflamatorio esteroidal">
+                        <td class="col-date">16/12/2021</td>
+                        <td class="col-med"><strong>Prednisolona 5mg</strong></td>
+                        <td class="col-use">1/2 comprimido via oral, 12/12h por 5 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Anti-inflamatório esteroidal.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="16/12/2021 surosolve limpeza do conduto auditivo 12/12h 3 dias isis de carvalho centro veterinario seres higiene auricular remocao de secrecao">
+                        <td class="col-date">16/12/2021</td>
+                        <td class="col-med"><strong>Surosolve</strong></td>
+                        <td class="col-use">Limpeza do conduto auditivo, 12/12h por 3 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Higiene auricular/remoção de secreção.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="16/12/2021 easOtic 1 pump conduto auditivo 24/24h 5 dias isis de carvalho centro veterinario seres tratamento de otite">
+                        <td class="col-date">16/12/2021</td>
+                        <td class="col-med"><strong>easOtic</strong></td>
+                        <td class="col-use">1 pump no conduto auditivo, 24/24h por 5 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Tratamento de otite.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="04/01/2022 vonau vet 0,5 ml via oral 8/8h 5 dias brunna rodrigues cordeiro centro veterinario seres controle de nauseas e vomitos">
+                        <td class="col-date">04/01/2022</td>
+                        <td class="col-med"><strong>Vonau Vet</strong></td>
+                        <td class="col-use">0,5 ml via oral, 8/8h por 5 dias.</td>
+                        <td class="col-vet">Brunna Rodrigues Cordeiro</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Controle de náuseas e vômitos.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="04/01/2022 gaviz v10 1 comprimido via oral 12/12h 10 dias brunna rodrigues cordeiro centro veterinario seres protetor gastrico">
+                        <td class="col-date">04/01/2022</td>
+                        <td class="col-med"><strong>Gaviz V10</strong></td>
+                        <td class="col-use">1 comprimido via oral, 12/12h por 10 dias.</td>
+                        <td class="col-vet">Brunna Rodrigues Cordeiro</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Protetor gástrico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/01/2022 amoxicilina + clavulanato 1,1 ml via oral 8/8h 14 dias anna cristina bastos candini centro veterinario seres antibiotico infeccoes bacterianas">
+                        <td class="col-date">06/01/2022</td>
+                        <td class="col-med"><strong>Amoxicilina + Clavulanato</strong></td>
+                        <td class="col-use">1,1 ml via oral, 8/8h por 14 dias.</td>
+                        <td class="col-vet">Anna Cristina Bastos Candini</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Antibiótico para infecções bacterianas.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/01/2022 meloxitabs 0,2mg 1 comprimido via oral 24/24h 4 dias anna cristina bastos candini centro veterinario seres antiinflamatorio analgesico">
+                        <td class="col-date">06/01/2022</td>
+                        <td class="col-med"><strong>Meloxitabs 0,2mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 24/24h por 4 dias.</td>
+                        <td class="col-vet">Anna Cristina Bastos Candini</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Anti-inflamatório e analgésico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/01/2022 cistimicin vet 1 comprimido via oral 24/24h 30 dias anna cristina bastos candini centro veterinario seres suporte trato urinario cistite">
+                        <td class="col-date">06/01/2022</td>
+                        <td class="col-med"><strong>Cistimicin Vet</strong></td>
+                        <td class="col-use">1 comprimido via oral, 24/24h por 30 dias.</td>
+                        <td class="col-vet">Anna Cristina Bastos Candini</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Suporte ao trato urinário (Cistite).</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="05/02/2022 vetmax plus dose conforme peso bula repetir conforme idade isis de carvalho centro veterinario seres vermifugo amplo espectro">
+                        <td class="col-date">05/02/2022</td>
+                        <td class="col-med"><strong>Vetmax Plus</strong></td>
+                        <td class="col-use">Dose conforme peso (bula), repetir conforme idade.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Vermífugo de amplo espectro.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="05/02/2022 dipirona gotas 5 gotas via oral 8/8h se dor ou febre isis de carvalho centro veterinario seres analgesico antitermico">
+                        <td class="col-date">05/02/2022</td>
+                        <td class="col-med"><strong>Dipirona Gotas</strong></td>
+                        <td class="col-use">5 gotas via oral, 8/8h (se dor ou febre).</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Analgésico e antitérmico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="05/02/2022 simparic 1 comprimido via oral cada 30 dias isis de carvalho centro veterinario seres protecao pulgas carrapatos sarnas">
+                        <td class="col-date">05/02/2022</td>
+                        <td class="col-med"><strong>Simparic</strong></td>
+                        <td class="col-use">1 comprimido via oral a cada 30 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Proteção contra pulgas, carrapatos e sarnas.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="27/02/2022 dermotrat creme aplicar na pele 12/12h ate cicatrizar isis de carvalho centro veterinario seres cicatrizacao tratamento cutaneo">
+                        <td class="col-date">27/02/2022</td>
+                        <td class="col-med"><strong>Dermotrat Creme</strong></td>
+                        <td class="col-use">Aplicar na pele, 12/12h até cicatrizar.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Cicatrização e tratamento cutâneo.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="27/02/2022 puppy dog puppy palitos 1g ou 1/2 palito 12/12h ate completar 1 ano isis de carvalho centro veterinario seres suplemento alimentar filhotes">
+                        <td class="col-date">27/02/2022</td>
+                        <td class="col-med"><strong>Puppy Dog / Puppy Palitos</strong></td>
+                        <td class="col-use">1g (ou 1/2 palito) 12/12h até completar 1 ano.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Suplemento alimentar para filhotes.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="27/02/2022 calmyn dog 2 ml via oral 24/24h se necessario isis de carvalho centro veterinario seres suplemento controle ansiedade">
+                        <td class="col-date">27/02/2022</td>
+                        <td class="col-med"><strong>Calmyn Dog</strong></td>
+                        <td class="col-use">2 ml via oral, 24/24h se necessário.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana Lemes</td>
+                        <td class="col-clinic">Centro Veterinário Seres</td>
+                        <td class="col-ind">Suplemento para controle de ansiedade.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="25/05/2022 marbopet 27,5mg 1 comprimido via oral 1x ao dia 20 dias angelita mendes de lima mon amour consultorio antibiotico amplo espectro">
+                        <td class="col-date">25/05/2022</td>
+                        <td class="col-med"><strong>Marbopet 27,5mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 1x ao dia por 20 dias.</td>
+                        <td class="col-vet">Angelita Mendes de Lima</td>
+                        <td class="col-clinic">Mon Amour Consultório</td>
+                        <td class="col-ind">Antibiótico de amplo espectro.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="25/05/2022 prednisolona 5mg 1 comprimido via oral 1x ao dia 3 a 5 dias angelita mendes de lima mon amour consultorio antiinflamatorio">
+                        <td class="col-date">25/05/2022</td>
+                        <td class="col-med"><strong>Prednisolona 5mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 1x ao dia por 3 a 5 dias.</td>
+                        <td class="col-vet">Angelita Mendes de Lima</td>
+                        <td class="col-clinic">Mon Amour Consultório</td>
+                        <td class="col-ind">Anti-inflamatório.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/07/2022 silmox 50mg 2 comprimidos via oral 12/12h 5 dias andrea ribeiro clinica m.v. andrea ribeiro antibiotico amoxicilina clavulanato">
+                        <td class="col-date">06/07/2022</td>
+                        <td class="col-med"><strong>Silmox 50mg</strong></td>
+                        <td class="col-use">2 comprimidos via oral, 12/12h por 5 dias.</td>
+                        <td class="col-vet">Andréa Ribeiro</td>
+                        <td class="col-clinic">Clínica M.V. Andréa Ribeiro</td>
+                        <td class="col-ind">Antibiótico (Amoxicilina + Clavulanato).</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/07/2022 vonau vet 1 ml via oral 12/12h 7 dias andrea ribeiro clinica m.v. andrea ribeiro controle de vomitos nauseas">
+                        <td class="col-date">06/07/2022</td>
+                        <td class="col-med"><strong>Vonau Vet</strong></td>
+                        <td class="col-use">1 ml via oral, 12/12h por 7 dias.</td>
+                        <td class="col-vet">Andréa Ribeiro</td>
+                        <td class="col-clinic">Clínica M.V. Andréa Ribeiro</td>
+                        <td class="col-ind">Controle de vômitos/náuseas.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="06/07/2022 sucrafilm 2,5 ml via oral 8/8h 10 dias andrea ribeiro clinica m.v. andrea ribeiro protetor mucosa gastrica">
+                        <td class="col-date">06/07/2022</td>
+                        <td class="col-med"><strong>Sucrafilm</strong></td>
+                        <td class="col-use">2,5 ml via oral, 8/8h por 10 dias.</td>
+                        <td class="col-vet">Andréa Ribeiro</td>
+                        <td class="col-clinic">Clínica M.V. Andréa Ribeiro</td>
+                        <td class="col-ind">Protetor da mucosa gástrica.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="08/07/2022 prednisolona 20mg dose regressiva 12/12h depois 24/24h depois dias alternados andrea ribeiro clinica m.v. andrea ribeiro antiinflamatorio imunossupressor">
+                        <td class="col-date">08/07/2022</td>
+                        <td class="col-med"><strong>Prednisolona 20mg</strong></td>
+                        <td class="col-use">Dose regressiva (12/12h, depois 24/24h, depois dias alternados).</td>
+                        <td class="col-vet">Andréa Ribeiro</td>
+                        <td class="col-clinic">Clínica M.V. Andréa Ribeiro</td>
+                        <td class="col-ind">Anti-inflamatório/Imunossupressor.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/07/2022 dipirona 500mg 1/2 comprimido via oral 8/8h 5 dias gabriela sena c. martins onepet analgésico antitérmico">
+                        <td class="col-date">28/07/2022</td>
+                        <td class="col-med"><strong>Dipirona 500mg</strong></td>
+                        <td class="col-use">1/2 comprimido via oral, 8/8h por 5 dias.</td>
+                        <td class="col-vet">Gabriela Sena C. Martins</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Analgésico e antitérmico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/07/2022 meloxivet 2mg 1 comprimido via oral 24/24h 5 dias gabriela sena c. martins onepet antiinflamatorio analgesico">
+                        <td class="col-date">28/07/2022</td>
+                        <td class="col-med"><strong>Meloxivet 2mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 24/24h por 5 dias.</td>
+                        <td class="col-vet">Gabriela Sena C. Martins</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Anti-inflamatório e analgésico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="28/07/2022 luftal gotas 10 gotas via oral 6/6h iniciar 24h antes do exame gabriela sena c. martins onepet reducao de gases ultrassom">
+                        <td class="col-date">28/07/2022</td>
+                        <td class="col-med"><strong>Luftal Gotas</strong></td>
+                        <td class="col-use">10 gotas via oral, 6/6h (iniciar 24h antes do exame).</td>
+                        <td class="col-vet">Gabriela Sena C. Martins</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Redução de gases para ultrassom.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="29/07/2022 enrofloxacina 50mg 1 comprimido via oral 12/12h 21 dias nao especificado onepet antibiotico infeccao urinaria rins">
+                        <td class="col-date">29/07/2022</td>
+                        <td class="col-med"><strong>Enrofloxacina 50mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 12/12h por 21 dias.</td>
+                        <td class="col-vet">Não especificado</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Antibiótico para infecção urinária/rins.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="29/07/2022 cistimicin 1 comprimido via oral 1x ao dia 30 dias nao especificado onepet tratamento de cistite bexiga">
+                        <td class="col-date">29/07/2022</td>
+                        <td class="col-med"><strong>Cistimicin</strong></td>
+                        <td class="col-use">1 comprimido via oral, 1x ao dia por 30 dias.</td>
+                        <td class="col-vet">Não especificado</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Tratamento de cistite (bexiga).</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="16/08/2022 fitofix gel passar na ferida sempre que necessario isis de carvalho onepet soulpet gel cicatrizante fitoterapico">
+                        <td class="col-date">16/08/2022</td>
+                        <td class="col-med"><strong>Fitofix Gel</strong></td>
+                        <td class="col-use">Passar na ferida sempre que necessário.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana</td>
+                        <td class="col-clinic">OnePet (Soulpet)</td>
+                        <td class="col-ind">Gel cicatrizante e fitoterápico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="16/08/2022 gaviz v 10mg 1 comprimido via oral 12/12h ate nova avaliacao isis de carvalho onepet soulpet protetor gastrico">
+                        <td class="col-date">16/08/2022</td>
+                        <td class="col-med"><strong>Gaviz V 10mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 12/12h até nova avaliação.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana</td>
+                        <td class="col-clinic">OnePet (Soulpet)</td>
+                        <td class="col-ind">Proteção gástrica.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="04/10/2022 gaviz v 10mg 1 comprimido via oral 24/24h 7 dias isis de carvalho onepet (+pet) protetor estomacal">
+                        <td class="col-date">04/10/2022</td>
+                        <td class="col-med"><strong>Gaviz V 10mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 24/24h por 7 dias.</td>
+                        <td class="col-vet">Isis de Carvalho R. Santana</td>
+                        <td class="col-clinic">OnePet (+Pet)</td>
+                        <td class="col-ind">Protetor estomacal.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="18/10/2022 ograx 1000mg 1 capsula via oral 1x ao dia uso continuo hugo c. m. pires onepet soulpet suplemento nutricional omega 3">
+                        <td class="col-date">18/10/2022</td>
+                        <td class="col-med"><strong>Ograx 1000mg</strong></td>
+                        <td class="col-use">1 cápsula via oral, 1x ao dia (uso contínuo).</td>
+                        <td class="col-vet">Hugo C. M. Pires</td>
+                        <td class="col-clinic">OnePet (Soulpet)</td>
+                        <td class="col-ind">Suplemento nutricional (Ômega 3).</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="15/03/2024 apoquel 16mg 1/2 comp 12/12h 14 dias depois 1 cap 24/24h maria amelia ramires siov dermato oftalmo controle de coceira alergia cutanea">
+                        <td class="col-date">15/03/2024</td>
+                        <td class="col-med"><strong>Apoquel 16mg</strong></td>
+                        <td class="col-use">1/2 comp. 12/12h por 14 dias, depois 1 cáp. 24/24h.</td>
+                        <td class="col-vet">Maria Amélia Ramires</td>
+                        <td class="col-clinic">SIOV (Dermato/Oftalmo)</td>
+                        <td class="col-ind">Controle de coceira e alergia cutânea.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="15/03/2024 hidrapet xampu utilizar nos banhos uma vez a cada 15 dias maria amelia ramires siov dermato oftalmo hidratacao pele pelagem">
+                        <td class="col-date">15/03/2024</td>
+                        <td class="col-med"><strong>Hidrapet xampu</strong></td>
+                        <td class="col-use">Utilizar nos banhos uma vez a cada 15 dias.</td>
+                        <td class="col-vet">Maria Amélia Ramires</td>
+                        <td class="col-clinic">SIOV (Dermato/Oftalmo)</td>
+                        <td class="col-ind">Hidratação da pele e pelagem.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="29/01/2025 alergovet c 0,7mg 1,5 comprimido via oral 12/12h 2 dias larissa julia hospital vet. bueno tratamento reacao alergica pos vacinal">
+                        <td class="col-date">29/01/2025</td>
+                        <td class="col-med"><strong>Alergovet C 0,7mg</strong></td>
+                        <td class="col-use">1,5 comprimido via oral, 12/12h por 2 dias.</td>
+                        <td class="col-vet">Larissa Julia</td>
+                        <td class="col-clinic">Hospital Vet. Bueno</td>
+                        <td class="col-ind">Tratamento de reação alérgica pós-vacinal.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="08/09/2025 agemoxi 250 1 comprimido via oral 12/12h 8 dias camila donatti dra camila donatti oftalmo antibiotico sistemico">
+                        <td class="col-date">08/09/2025*</td>
+                        <td class="col-med"><strong>Agemoxi 250</strong></td>
+                        <td class="col-use">1 comprimido via oral, 12/12h por 8 dias.</td>
+                        <td class="col-vet">Camila Donatti</td>
+                        <td class="col-clinic">Dra. Camila Donatti (Oftalmo)</td>
+                        <td class="col-ind">Antibiótico sistêmico.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="08/09/2025 zyman colirio 1 gota olho esquerdo 6x ao dia 20 dias camila donatti dra camila donatti oftalmo antibiotico ocular">
+                        <td class="col-date">08/09/2025*</td>
+                        <td class="col-med"><strong>Zyman (colírio)</strong></td>
+                        <td class="col-use">1 gota no olho esquerdo, 6x ao dia por 20 dias.</td>
+                        <td class="col-vet">Camila Donatti</td>
+                        <td class="col-clinic">Dra. Camila Donatti (Oftalmo)</td>
+                        <td class="col-ind">Antibiótico ocular.</td>
+                    </tr>
+
+                    <tr class="searchable" data-search="08/09/2025 gaviz 10mg 1 comprimido via oral 24/24h 10 dias camila donatti dra camila donatti oftalmo protecao estomago">
+                        <td class="col-date">08/09/2025*</td>
+                        <td class="col-med"><strong>Gaviz 10mg</strong></td>
+                        <td class="col-use">1 comprimido via oral, 24/24h por 10 dias.</td>
+                        <td class="col-vet">Camila Donatti</td>
+                        <td class="col-clinic">Dra. Camila Donatti (Oftalmo)</td>
+                        <td class="col-ind">Proteção do estômago.</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="noResults" class="w3-panel w3-yellow w3-padding w3-round" style="display:none; margin-top:12px;">
+            Nenhum resultado encontrado. Tente outra palavra-chave.
+        </div>
+    </main>
+<p><a href="https://bartmango.github.io/BuffyHome/pdf/ReceitasBuffy.pdf" class="btn btn-outline-light rounded-pill border-2 py-3 px-5 animated slideInRight">Minhas Receitas</a></p>
+    <footer class="w3-container w3-light-grey w3-center w3-padding-12">
+        <small class="w3-text-grey">Tabela de histórico de medicamentos • Buffy</small>
+    </footer>
+
+    <script>
+        const rows = Array.from(document.querySelectorAll('tr.searchable'));
+        const input = document.getElementById('search');
+        const status = document.getElementById('status');
+        const noResults = document.getElementById('noResults');
+
+        function normalize(s) { return (s || '').toString().toLowerCase(); }
+
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
+        }
+
+        function highlight(text, q) {
+            if (!q) return escapeHtml(text);
+            const safeQ = q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const parts = text.split(new RegExp('(' + safeQ + ')', 'ig'));
+            return parts.map(p => p.toLowerCase() === q.toLowerCase() ? '<span class="match">' + escapeHtml(p) + '</span>' : escapeHtml(p)).join('');
+        }
+
+        function performSearch() {
+            const qRaw = input.value || '';
+            const q = normalize(qRaw).trim();
+            let visible = 0;
+
+            rows.forEach(row => {
+                const source = normalize(row.dataset.search || row.textContent);
+                if (!q || source.indexOf(q) !== -1) {
+                    row.style.display = '';
+                    visible++;
+                    // destacar cada célula usando seu textContent
+                    row.querySelectorAll('td').forEach(td => {
+                        td.innerHTML = highlight(td.textContent, q);
+                    });
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            status.textContent = q ? (visible + ' resultado' + (visible !== 1 ? 's' : '') + ' para "' + qRaw + '"') : 'Digite para filtrar a tabela abaixo.';
+            noResults.style.display = visible === 0 ? '' : 'none';
+        }
+
+        function clearSearch() {
+            input.value = '';
+            performSearch();
+            input.focus();
+        }
+
+        input.addEventListener('keydown', function(e){
+            if (e.key === 'Escape') clearSearch();
+        });
+
+        // initial render
+        performSearch();
+    </script>
+</body>
+</html>
